@@ -1,0 +1,11 @@
+<svg width="160" height="80" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <rect fill="none" id="canvas_background" height="82" width="162" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <text transform="matrix(1,0,0,1,0,0) " opacity="0.95" font-style="italic" font-weight="bold" xml:space="preserve" text-anchor="start" font-family="'Courier New', Courier, monospace" font-size="80" id="svg_5" y="61.25" x="7.492188" stroke-width="0" stroke="#000" fill="#005fbf">Ego</text>
+ </g>
+</svg>

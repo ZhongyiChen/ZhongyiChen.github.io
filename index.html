@@ -1,11 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="shortcut icon" href="./favicon.png">
   <title>Ego</title>
+  <link rel="stylesheet" href="./css/theme_brown.css">
+  <style>
+    html {
+      height: 100%;
+      line-height: 2;
+      background-color: #3EECAC;
+      background-image: linear-gradient(19deg, #3EECAC 0%, #EE74E1 100%);
+    }
+    body {
+      margin: 0;
+    }
+    h1 {
+      height: 80px;
+      background-image: url(img/LOGO.svg);
+      background-repeat: no-repeat;
+      background-size: contain;
+      margin: 40px 0 0 40px;
+      font-size: 0;
+    }
+    .btn {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      -webkit-transform: translate(-50%);
+      transform: translate(-50%);
+      font-size: 1.3em;
+      border: 2px solid #fffffe;
+      border-radius: .3em;
+    }
+    .btn a {
+      position: relative;
+      white-space: nowrap;
+      font-weight: bold;
+      color: #fffffe;
+      text-decoration: none;
+      padding: .25em 1em;
+      vertical-align: top;
+      z-index: 1;
+    }
+    footer {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      text-align: center;
+      color: var(--card-tag-txet-color);
+    }
+    footer p {
+      margin: 0;
+      padding: 1em;
+    }
+  </style>
 </head>
 <body>
-  个人主页
+  <h1>Ego</h1>
+  <div class="btn">
+    <a href="./resume/resume.html">芝麻开门</a>
+  </div>
+  <footer>
+    <p><small>© copyright 2020 ChenZhongyi</small></p>
+  </footer>
 </body>
 </html>

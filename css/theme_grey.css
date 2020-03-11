@@ -1,0 +1,25 @@
+:root {
+  --main-bg-color: #f8f5f2;
+  --main-headline-color: #232323;
+  --main-sub-headline-color: #222525;
+  --main-paragraph-color: #222525;
+
+  --button-bg-color: #078080;
+  --button-border-color: #232323;
+  --button-text-color: #232323;
+
+  --link-text-color: #078080;
+
+  --card-bg-color: #fffffe;
+  --card-headline-color: #232323;
+  --card-paragraph-color: #222525;
+  --card-tag-bg-color: #078080;
+  --card-tag-txet-color: #fffffe;
+  --card-tag-highlight-bg-color: #078080;
+
+  --illustration-stroke-color: #232323;
+  --illustration-fill-main-color: #fffffe;
+  --illustration-fill-secondary-color: #f45d48;
+  --illustration-fill-tertiary-color: #f8f5f2;
+  --illustration-highlight-fill-color: #078080;
+}
