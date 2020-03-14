@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+}
+
+header,
+article,
+section,
+nav {
+  display: block;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}

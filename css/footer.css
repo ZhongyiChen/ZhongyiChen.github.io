@@ -1,0 +1,21 @@
+body:after {
+  content: '';
+  display: block;
+  height: 60px;
+}
+
+footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 60px;
+  overflow: hidden;
+  text-align: center;
+  color: var(--card-tag-txet-color);
+}
+
+footer p {
+  margin: 0;
+  padding: 1em;
+}

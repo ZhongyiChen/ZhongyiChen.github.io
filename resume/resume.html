@@ -2,26 +2,105 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="shortcut icon" href="../favicon.png">
   <title>Ego Resume</title>
+  <link rel="stylesheet" href="resume.css">
 </head>
 <body>
   <header>
-    <h1>Ego</h1>
     <nav>
-      <ul>
-        <li><a href="#">博客</a></li>
-        <li><a href="#">作品</a></li>
-        <li><a href="#">导航</a></li>
-        <li><a href="#">简历</a></li>
+      <a id="navBar" class="navbar collapse" data-collapse="1"></a>
+      <ul id="navUl" class="collapse">
+        <li><a href="#">博 客</a></li>
+        <li><a href="#">作 品</a></li>
+        <li><a href="#">导 航</a></li>
+        <li class="active"><a href="#">简 历</a></li>
       </ul>
     </nav>
   </header>
-  <article>
-    <section></section>
+  <article data-enable-scroll="1">
+    <section>
+      <p><b>陈忠艺</b></p>
+    </section>
+    <section>
+      <p><b>毕业院校</b></p>
+      <div>
+        <a href="http://www.wyu.edu.cn/" target="_blank" rel="nofollow" title="五邑大学">
+          <img class="icon" src="../img/wyu.png" alt="五邑大学">
+        </a>
+      </div>
+    </section>
+    <section>
+      <p><b>任职经历</b></p>
+      <div>
+        <a href="https://www.rabbitpre.com/" target="_blank" rel="nofollow" title="兔展">
+          <img class="icon" src="../img/tz.svg" alt="兔展">
+        </a>
+      </div>
+    </section>
+    <section>
+      <p><b>读书笔记</b></p>
+      <div>
+        <a href="https://sourcegraph.com/github.com/ZhongyiChen/my-books-notes" target="_blank" rel="nofollow" title="sourcegraph">
+          <img class="icon" src="../img/sourcegraph.svg" alt="sourcegraph">
+        </a>
+      </div>
+    </section>
+    <section>
+      <p><b>技术体系</b></p>
+      <div>
+        <a href="https://people.kernel.org" target="_blank" rel="nofollow" title="Linux">
+          <img class="icon" src="../img/linux.svg" alt="Linux">
+        </a>
+        <a href="https://git-scm.com/docs" target="_blank" rel="nofollow" title="Git">
+          <img class="icon" src="../img/git.svg" alt="Git">
+        </a>
+        <a href="https://html.spec.whatwg.org/multipage/" target="_blank" rel="nofollow" title="HTML">
+          <img class="icon" src="../img/html.svg" alt="HTML">
+        </a>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="nofollow" title="Javascript">
+          <img class="icon" src="../img/javascript.svg" alt="Javascript">
+        </a>
+        <a href="https://vuejs.org/v2/guide/" target="_blank" rel="nofollow" title="Vue">
+          <img class="icon" src="../img/vue.svg" alt="Vue">
+        </a>
+        <i></i>
+        <i></i>
+        <i></i>
+      </div>
+    </section>
+    <section>
+      <p><b>联系关注</b></p>
+      <div>
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=1515738181&site=qq&menu=yes" target="_blank" rel="nofollow" title="QQ">
+          <img class="icon" src="../img/qq.svg" alt="QQ">
+        </a>
+        <a href="#" target="_blank" rel="nofollow" title="Wechat">
+          <img class="icon" src="../img/wechat.svg" alt="Wechat">
+        </a>
+        <a href="https://github.com/ZhongyiChen" target="_blank" rel="nofollow" title="Github">
+          <img class="icon" src="../img/github.svg" alt="Github">
+        </a>
+        <i></i>
+        <i></i>
+        <i></i>
+      </div>
+    </section>
   </article>
   <footer>
     <p><small>© copyright 2020 ChenZhongyi</small></p>
   </footer>
+  <script>
+    (function() {
+      if (navigator.userAgent.match(/AppleWebKit.*Mobile.*/)) {
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.src = '../js/disable_body_scroll.js';
+        document.getElementsByTagName('head')[0].appendChild(s);
+      }
+    }());
+  </script>
+  <script src="resume.js"></script>
 </body>
 </html>

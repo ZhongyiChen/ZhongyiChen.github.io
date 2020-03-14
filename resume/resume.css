@@ -1,0 +1,89 @@
+@import "../css/reset.css";
+@import "../css/header.css";
+@import "../css/footer.css";
+
+html {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+body {
+  position: relative;
+  min-height: 100%;
+  background-color: #e8e4e6;
+}
+
+a {
+  color: #fffffe;
+  text-decoration: none;
+}
+
+header {
+  background-color: #004643;
+  box-shadow: 0 0 3px 0 #001e1d;
+}
+
+header nav,
+article {
+  max-width: 1024px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+section {
+  margin: 2em 0 1em;
+}
+
+section div {
+  width: 100%;
+  margin: 0 -1.5em;
+}
+
+section p {
+  margin: 1em 0;
+}
+
+section div i {
+  display: none;
+  height: 0;
+}
+
+section div i,
+section div a {
+  color: #f9bc60;
+  margin-left: 1.5em;
+}
+
+.icon {
+  margin-bottom: 1em;
+}
+
+section div i,
+.icon {
+  width: 4em;
+  vertical-align: top;
+}
+
+
+@media screen and (max-width: 1024px) {
+  header nav,
+  article {
+    padding: 0 1.5rem;
+  }
+  article {
+    padding-right: 0;
+  }
+}
+
+
+@media screen and (max-width: 750px) {
+  section div  {
+    text-align: justify;
+  }
+  section div i {
+    display: inline-block;
+  }
+}
