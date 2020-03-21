@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  padding-left: calc(100vw - 100%);
 }
 
 header,

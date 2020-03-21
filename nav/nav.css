@@ -1,0 +1,91 @@
+@import "../css/reset.css";
+@import "../css/header.css";
+@import "../css/footer.css";
+
+html {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+body {
+  position: relative;
+  min-height: 100%;
+  background-color: #e8e4e6;
+}
+
+a {
+  color: #fffffe;
+  text-decoration: none;
+}
+
+header {
+  background-color: #004643;
+  box-shadow: 0 0 3px 0 #001e1d;
+}
+
+header nav,
+dl {
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+dl {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+dd {
+  display: inline-block;
+  width: 300px;
+  height: 2.8rem;
+  line-height: 2.8rem;
+  background: #abd1c6;
+  margin: 1.5rem 0 0;
+  text-indent: 1em;
+}
+
+dl i {
+  display: block;
+  width: 300px;
+  height: 0;
+}
+
+dt {
+  width: 100%;
+  font-size: 1.6em;
+  font-weight: bold;
+  margin-top: 2rem;
+}
+
+dd a {
+  display: block;
+  height: inherit;
+  color: #001e1d;
+}
+
+dd a img {
+  float: left;
+  width: 2.8rem;
+  height: 2.8rem;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 1024px) {
+  dl {
+    padding: 0 1.5rem;
+  }
+  dd {
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  dd {
+    width: 100%;
+  }
+}

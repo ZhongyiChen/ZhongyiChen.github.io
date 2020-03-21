@@ -24,6 +24,32 @@
   /* OLD - Firefox 19- */
 }
 
+.flex-2 {
+  -webkit-flex: 2;
+  /* Chrome */
+  -ms-flex: 2;
+  /* IE 10 */
+  flex: 2;
+  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  -webkit-box-flex: 2;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  -moz-box-flex: 2;
+  /* OLD - Firefox 19- */
+}
+
+.flex-4 {
+  -webkit-flex: 4;
+  /* Chrome */
+  -ms-flex: 4;
+  /* IE 10 */
+  flex: 4;
+  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  -webkit-box-flex: 4;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  -moz-box-flex: 4;
+  /* OLD - Firefox 19- */
+}
+
 .flex-v {
   -webkit-box-orient: vertical;
   -webkit-flex-direction: column;
@@ -32,6 +58,10 @@
 }
 
 .flex-wrap {
+  -moz-box-lines: multiple;
+  -webkit-box-lines: multiple;
+  -o-box-lines: multiple;
+  box-lines: multiple;
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
 }
