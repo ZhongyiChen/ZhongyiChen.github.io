@@ -93,3 +93,13 @@
   -ms-flex-pack: center;
   justify-content: space-around;
 }
+
+.flex-align-justify {
+  -webkit-align-content: space-between;
+  align-content: space-between;
+}
+
+.flex-align-around {
+  -webkit-align-content: space-around;
+  align-content: space-around;
+}

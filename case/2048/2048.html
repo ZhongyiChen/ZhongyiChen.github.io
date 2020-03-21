@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="shortcut icon" href="../../favicon.png">
+  <title>Ego 2048</title>
+  <link rel="stylesheet" href="../../css/flex.css">
+  <link rel="stylesheet" href="2048.css">
+</head>
+<body>
+  <div class="container">
+    <ul class="flex flex-wrap flex-pack-justify flex-align-justify">
+      <li class="item-0"><b></b></li>
+      <li class="item-0"><b></b></li>
+      <li class="item-0"><b></b></li>
+      <li class="item-0"><b></b></li>
+      <li class="item-0"><b></b></li>
+      <li class="item-0"><b></b></li>
+      <li class="item-0"><b></b></li>
+      <li class="item-0"><b></b></li>
+      <li class="item-0"><b></b></li>
+      <li class="item-0"><b></b></li>
+      <li class="item-0"><b></b></li>
+      <li class="item-0"><b></b></li>
+      <li class="item-0"><b></b></li>
+      <li class="item-0"><b></b></li>
+      <li class="item-0"><b></b></li>
+      <li class="item-0"><b></b></li>
+    </ul>
+  </div>
+  <script>
+    (function() {
+      if (navigator.userAgent.match(/AppleWebKit.*Mobile.*/)) {
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.src = '../../js/disable_body_scroll.js';
+        document.getElementsByTagName('head')[0].appendChild(s);
+      }
+    }());
+  </script>
+  <script src="../../js/zepto.js" defer></script>
+  <script src="../../js/utils.js"></script>
+  <script src="2048.js" defer></script>
+</body>
+</html>
