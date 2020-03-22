@@ -6,8 +6,14 @@ function Game2048() {
   var utils = window.utils;
 
   var $container = $('.container');
-  var $list = $container.find('li');
-  var $list_b = $container.find('li b');
+  var $list_li = $container.find('li');
+  var $list_div = $container.find('li div');
+  var $list_b = $container.find('li div b');
+
+  // 得到各个格子相对方盒的位置
+  var itemPositions = $list_li.map(function(index, li) {
+    return $(li).position();
+  });
 
   this._preItems = [            // 手指滑动前的各项
     0, 0, 0, 0,
@@ -24,7 +30,8 @@ function Game2048() {
   this._rows = 4;               // 行数
   this._cols = 4;               // 列数
   this._emptyCells = [];        // 空项下标的集合
-  this._moveLocked = false;       // 移动锁
+  this._moveLocked = false;     // 移动锁
+  this._maxItem = 2;            // 最大的项
   this.canMoveLeft = false;     // 能否往左移
   this.canMoveRight = false;    // 能否往右移
   this.canMoveUp = false;       // 能否往上移
@@ -62,7 +69,7 @@ function Game2048() {
         continue;
       }
       this._preItems[i] = curItem;
-      $list.eq(i)
+      $list_div.eq(i)
         .removeClass()
         .addClass('item-' + curItem);
       $list_b.eq(i)
@@ -89,12 +96,23 @@ function Game2048() {
   }
 
   // (随机)选择一个空格子填充数字
-  this._fillOneCell = function(index, num) {
-    if (index < 0) {
-      index = utils.getRandomAmongScope(0, this._emptyCells.length - 1);
+  this._fillOneCell = function(i, num) {
+    var index = 0;
+    if (i < 0) {
+      i = utils.getRandomAmongScope(0, this._emptyCells.length - 1);
     }
-    this._curItems[this._emptyCells[index]] = num;
-    this._render();
+    index = this._emptyCells[i];
+
+    this._curItems[index] = num;
+    this._render(function() {
+      var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+      $list_div.eq(index)
+        .off(animationEnd)
+        .addClass('item-emerge')
+        .one(animationEnd, function() {
+          $(this).removeClass('item-emerge');
+        });
+    });
     
     return this;
   }
@@ -185,6 +203,13 @@ function Game2048() {
     return this;
   }
 
+  this._updateMaxItem = function(num) {
+    if (this._maxItem >= num) {
+      return;
+    }
+    this._maxItem = num;
+  }
+
   // 正向移动(某列向下/某行向右)
   this._moveForward = function(items) {
     var arr = [];
@@ -203,6 +228,7 @@ function Game2048() {
         continue;
       }
       if (pre === cur) {
+        this._updateMaxItem(pre * 2);
         arr.unshift(pre * 2);
         pre = 0;
         continue;
@@ -238,6 +264,7 @@ function Game2048() {
         continue;
       }
       if (pre === cur) {
+        this._updateMaxItem(pre * 2);
         arr.push(pre * 2);
         pre = 0;
         continue;
@@ -261,6 +288,9 @@ function Game2048() {
     this._filterEmptyCells();
     this._fillOneCell(-1, 2);
     this._affirmMoveDirection();
+    if (this._maxItem === 2048) {
+      // console.log('恭喜你！成功到达 2048！');
+    }
     if (
       this.canMoveLeft ||
       this.canMoveRight ||
@@ -349,15 +379,27 @@ window.onload = function() {
     }
     switch (direction) {
       case 1:       // left
+        if (!game.canMoveLeft) {
+          break;
+        }
         game.moveHorizontal(true);
         break;
       case 2:       // right
+        if (!game.canMoveRight) {
+          break;
+        }
         game.moveHorizontal(false);
         break;
       case 3:       // up
+        if (!game.canMoveUp) {
+          break;
+        }
         game.moveVertical(true);
         break;
       case 4:       // down
+        if (!game.canMoveDown) {
+          break;
+        }
         game.moveVertical(false);
         break;
     }
