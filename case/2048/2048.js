@@ -82,12 +82,52 @@ function Game2048() {
   // (随机)选择一个空格子填充数字
   this.fillOneCell = function(index, num) {
     if (index < 0) {
-      index = utils.getRandomAmongScope(0, this.emptyCells.length);
+      index = utils.getRandomAmongScope(0, this.emptyCells.length - 1);
     }
     this.curItems[this.emptyCells[index]] = num;
     this.render();
     
     return this;
+  }
+
+  // 检测能否正向移动
+  this._affirmMoveForward = function(items) {
+    var i = 0;
+    var len = items.length;
+    var pre = 0;
+    for (i = 0; i < len; i++) {
+      if (!items[i]) {
+        if (pre) {
+          return true;
+        }
+      } else {
+        if (items[i] === pre) {
+          return true;
+        }
+        pre = items[i];
+      }
+    }
+    return false;
+  }
+
+  // 检测能否反向移动
+  this._affirmMoveReverse = function(items) {
+    var i = 0;
+    var len = items.length;
+    var pre = 0;
+    for (i = len - 1; i >= 0; i--) {
+      if (!items[i]) {
+        if (pre) {
+          return true;
+        }
+      } else {
+        if (items[i] === pre) {
+          return true;
+        }
+        pre = items[i];
+      }
+    }
+    return false;
   }
 
   // 正向移动(某列向下/某行向右)
@@ -169,73 +209,92 @@ function Game2048() {
 
   // 往左移
   this.moveLeft = function() {
+    var isMoved = false;      // 是否移动过
     var items = [];
     for (var i = 0; i < this.rows; i++) {
       items.length = 0;
       for (var j = 0; j < this.cols; j++) {
         items.push(this.curItems[i * this.cols + j]);
       }
+      if (!this._affirmMoveReverse(items)) {
+        continue;
+      }
+      isMoved = true;
       items = this._moveReverse(items);
       for (var k = 0; k < this.cols; k++) {
         this.curItems[i * this.cols + k] = items[k];
       }
     }
-    this._moveDone();
+    isMoved && this._moveDone();
 
     return this;
   }
 
   // 往右移
   this.moveRight = function() {
+    var isMoved = false;      // 是否移动过
     var items = [];
     for (var i = 0; i < this.rows; i++) {
       items.length = 0;
       for (var j = 0; j < this.cols; j++) {
         items.push(this.curItems[i * this.cols + j]);
       }
+      if (!this._affirmMoveForward(items)) {
+        continue;
+      }
+      isMoved = true;
       items = this._moveForward(items);
       for (var k = 0; k < this.cols; k++) {
         this.curItems[i * this.cols + k] = items[k];
       }
     }
-    this._moveDone();
+    isMoved && this._moveDone();
 
     return this;
   }
 
   // 往上移
   this.moveUp = function() {
+    var isMoved = false;      // 是否移动过
     var items = [];
     for (var j = 0; j < this.cols; j++) {
       items.length = 0;
       for (var i = 0; i < this.rows; i++) {
         items.push(this.curItems[i * this.cols + j]);
       }
-      console.log('items: ', items);
+      if (!this._affirmMoveReverse(items)) {
+        continue;
+      }
+      isMoved = true;
       items = this._moveReverse(items);
       for (var k = 0; k < this.rows; k++) {
         this.curItems[k * this.cols + j] = items[k];
       }
     }
-    this._moveDone();
+    isMoved && this._moveDone();
 
     return this;
   }
 
   // 往下移
   this.moveDown = function() {
+    var isMoved = false;      // 是否移动过
     var items = [];
     for (var j = 0; j < this.cols; j++) {
       items.length = 0;
       for (var i = 0; i < this.rows; i++) {
         items.push(this.curItems[i * this.cols + j]);
       }
+      if (!this._affirmMoveForward(items)) {
+        continue;
+      }
+      isMoved = true;
       items = this._moveForward(items);
       for (var k = 0; k < this.cols; k++) {
         this.curItems[k * this.cols + j] = items[k];
       }
     }
-    this._moveDone();
+    isMoved && this._moveDone();
 
     return this;
   }
