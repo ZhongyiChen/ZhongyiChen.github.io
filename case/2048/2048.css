@@ -119,15 +119,6 @@ li div b {
   background-color: #E2C14E;
 }
 
-@keyframes {
-  from {
-    transform: scale(.1);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-
 @-webkit-keyframes emerge {
   from {
     -webkit-transform: scale(.1);

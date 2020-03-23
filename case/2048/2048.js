@@ -15,6 +15,11 @@ function Game2048() {
     return $(li).position();
   });
 
+  this.LEFT = 1;                // 各个方向的代号
+  this.RIGHT = 2;
+  this.UP = 3;
+  this.DOWN = 4;
+  this._curDirection = 0;       // 当前滑动的方向
   this._preItems = [            // 手指滑动前的各项
     0, 0, 0, 0,
     0, 0, 0, 0,
@@ -58,11 +63,35 @@ function Game2048() {
     return this;
   };
 
+  // 滑动后的动画
+  this._animateCells = function() {
+    switch (this._curDirection) {
+      case this.LEFT:
+        
+        break;
+      case this.RIGHT:
+        
+        break;
+      case this.UP:
+        
+        break;
+      case this.DOWN:
+        
+        break;
+    
+      default:
+        break;
+    }
+  }
+
   // 把数组的数字渲染到对应的 DOM 上
   this._render = function(cb) {
     var i = 0;
     var len = this._curItems.length;
     var curItem = 0;
+    if (this._curDirection) {   // 如果有滑动方向
+      this._animateCells();
+    }
     for (; i < len; i++) {
       curItem = this._curItems[i]
       if (this._preItems[i] === curItem) {
@@ -104,6 +133,7 @@ function Game2048() {
     index = this._emptyCells[i];
 
     this._curItems[index] = num;
+    this._curDirection = 0;       // 渲染前先重置移动方向
     this._render(function() {
       var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
       $list_div.eq(index)
@@ -307,11 +337,12 @@ function Game2048() {
   }
 
   // 往左/右移
-  this.moveHorizontal = function(isLeft) {
+  this.moveHorizontal = function(direction) {
     if (this._moveLocked) {
       return;
     }
     this._moveLocked = true;      // 先锁上
+    this._curDirection = this.direction;
 
     var items = [];
     for (var i = 0; i < this._rows; i++) {
@@ -319,7 +350,7 @@ function Game2048() {
       for (var j = 0; j < this._cols; j++) {
         items.push(this._curItems[i * this._cols + j]);
       }
-      if (isLeft) {
+      if (direction === this.LEFT) {
         items = this._moveReverse(items);
       } else {
         items = this._moveForward(items);
@@ -334,11 +365,12 @@ function Game2048() {
   }
 
   // 往上/下移
-  this.moveVertical = function(isUp) {
+  this.moveVertical = function(direction) {
     if (this._moveLocked) {
       return;
     }
     this._moveLocked = true;      // 先锁上
+    this._curDirection = this.direction;
 
     var items = [];
     for (var j = 0; j < this._cols; j++) {
@@ -346,7 +378,7 @@ function Game2048() {
       for (var i = 0; i < this._rows; i++) {
         items.push(this._curItems[i * this._cols + j]);
       }
-      if (isUp) {
+      if (direction === this.UP) {
         items = this._moveReverse(items);
       } else {
         items = this._moveForward(items);
@@ -378,51 +410,51 @@ window.onload = function() {
       return;
     }
     switch (direction) {
-      case 1:       // left
+      case game.LEFT:
         if (!game.canMoveLeft) {
           break;
         }
-        game.moveHorizontal(true);
+        game.moveHorizontal(game.LEFT);
         break;
-      case 2:       // right
+      case game.RIGHT:
         if (!game.canMoveRight) {
           break;
         }
-        game.moveHorizontal(false);
+        game.moveHorizontal(game.RIGHT);
         break;
-      case 3:       // up
+      case game.UP:
         if (!game.canMoveUp) {
           break;
         }
-        game.moveVertical(true);
+        game.moveVertical(game.UP);
         break;
-      case 4:       // down
+      case game.DOWN:
         if (!game.canMoveDown) {
           break;
         }
-        game.moveVertical(false);
+        game.moveVertical(game.DOWN);
         break;
     }
   }
 
   // 往左滑
   $container.on('swipeLeft', function(event) {
-    swipeListener(1);
+    swipeListener(game.LEFT);
   });
   
   // 往右滑
   $container.on('swipeRight', function(event) {
-    swipeListener(2);
+    swipeListener(game.RIGHT);
   });
   
   // 往上滑
   $container.on('swipeUp', function(event) {
-    swipeListener(3);
+    swipeListener(game.UP);
   });
   
   // 往下滑
   $container.on('swipeDown', function(event) {
-    swipeListener(4);
+    swipeListener(game.DOWN);
   });
 
 
