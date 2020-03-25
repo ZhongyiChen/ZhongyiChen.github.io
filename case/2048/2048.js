@@ -96,9 +96,7 @@ function Game2048() {
     Anim(x || y, 0, this._animTime, 'Linear', (function(val, isEnd) {
       if (isEnd) {
         $curDiv.show();
-        setTimeout(function() {
-          $dom.remove();
-        });
+        $dom.remove();
         return;
       }
       if (isHorizontal) {
