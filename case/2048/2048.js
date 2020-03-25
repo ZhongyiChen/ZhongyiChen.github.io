@@ -3,7 +3,8 @@
  */
 function Game2048() {
   var $ = window.$;
-  var utils = window.utils;
+  var Utils = window.Utils;
+  var Anim = window.Anim;
 
   var $container = $('.container');
   var $list_li = $container.find('li');
@@ -20,6 +21,7 @@ function Game2048() {
   this.UP = 3;
   this.DOWN = 4;
   this._curDirection = 0;       // 当前滑动的方向
+  this._animTime = 100;         // 动画时间(毫秒)
   this._preItems = [            // 手指滑动前的各项
     0, 0, 0, 0,
     0, 0, 0, 0,
@@ -48,7 +50,7 @@ function Game2048() {
   // 初始化，随机找两个格子放置两个 2
   this.init = function() {
     this._filterEmptyCells();
-    utils.shuffleArray(this._emptyCells);
+    Utils.shuffleArray(this._emptyCells);
 
     var beginCells = this._emptyCells.slice(0, 2);
     var i = 0;
@@ -61,25 +63,145 @@ function Game2048() {
     this._affirmMoveDirection();
 
     return this;
-  };
+  }
+
+  // 某一格的移动动画
+  this._animateCell = function(curIndex, preIndex, isHorizontal) {
+    var curPos = itemPositions[curIndex];
+    var prePos = itemPositions[preIndex];
+    var x = 0;
+    var y = 0;
+    var $curDiv = $list_div.eq(curIndex);
+    var $preDiv = $list_div.eq(preIndex);
+    var $curLi = $list_li.eq(curIndex);
+    var $dom = $preDiv.clone(false);
+    if (isHorizontal) {
+      x = prePos.left - curPos.left;
+      $dom.css({
+        '-webkit-transform': 'translateX(' + x + 'px)',
+        'transform': 'translateX(' + x + 'px)',
+        'z-index': 2,
+      });
+      $dom.css();
+    } else {
+      y = prePos.top - curPos.top;
+      $dom.css({
+        '-webkit-transform': 'translateY(' + y + 'px)',
+        'transform': 'translateY(' + y + 'px)',
+        'z-index': 2,
+      });
+    }
+    $curDiv.hide();
+    $curLi.prepend($dom);
+    Anim(x || y, 0, this._animTime, 'Linear', (function(val, isEnd) {
+      if (isEnd) {
+        $curDiv.show();
+        setTimeout(function() {
+          $dom.remove();
+        });
+        return;
+      }
+      if (isHorizontal) {
+        $dom.css({
+          '-webkit-transform': 'translateX(' + val + 'px)',
+          'transform': 'translateX(' + val + 'px)',
+        });
+      } else {
+        $dom.css({
+          '-webkit-transform': 'translateY(' + val + 'px)',
+          'transform': 'translateY(' + val + 'px)',
+        });
+      }
+    }).bind(this));
+  }
+
+  // 正向动画(某列向下/某行向右)
+  this._animateForward = function(items) {
+    if (!this._curItems[items[0]]) {
+      return;
+    }
+    var isHorizontal = Math.abs(items[1] - items[0]) === 1;
+    var curIndex = 0;       // items 的项，即 _curItems 的下标
+    var curItem = 0;        // _curItems 的项
+    var preIndex_1 = 0;     // items 的项，即 _preItems 的下标
+    var preItem_1 = 0;      // _preItems 的项
+    var preIndex_2 = 0;     // items 的项，即 _preItems 的下标
+    var preItem_2 = 0;      // _preItems 的项
+    var i = 0;
+    var j = 0;
+    var len = items.length;
+
+    for (; i < len && j < len;) {
+      if (!curItem) {
+        curIndex = items[i];
+        curItem = this._curItems[curIndex];
+        if (!curItem) {
+          i++;
+          continue;
+        }
+      }
+      if (!preItem_1) {
+        preIndex_1 = items[j];
+        preItem_1 = this._preItems[preIndex_1];
+        if (!preItem_1) {
+          j++;
+          continue;
+        }
+      }
+      if (curItem === preItem_1) {
+        this._animateCell(curIndex, preIndex_1, isHorizontal);
+        curItem = 0;
+        preItem_1 = preItem_2 = 0;
+        i++;
+        j++;
+        continue;
+      }
+      if (!preItem_2) {
+        j++;            // 先指向下一个
+        preIndex_2 = items[j];
+        preItem_2 = this._preItems[preIndex_2];
+        if (!preItem_2) {
+          continue;
+        }
+      }
+      this._animateCell(curIndex, preIndex_2, isHorizontal);
+      this._animateCell(curIndex, preIndex_1, isHorizontal);
+      curItem = 0;
+      preItem_1 = preItem_2 = 0;
+      i++;
+      j++;
+    }
+  }
 
   // 滑动后的动画
   this._animateCells = function() {
+    var items = [];
     switch (this._curDirection) {
       case this.LEFT:
-        
-        break;
       case this.RIGHT:
-        
+        for (var i = 0; i < this._rows; i++) {
+          items.length = 0;
+          for (var j = 0; j < this._cols; j++) {
+            items.push(i * this._cols + j);
+          }
+          if (this._curDirection === this.RIGHT) {
+            items.reverse();
+          }
+          this._animateForward(items);
+        }
         break;
       case this.UP:
-        
-        break;
       case this.DOWN:
-        
-        break;
-    
-      default:
+        for (var j = 0; j < this._cols; j++) {
+          items.length = 0;
+          for (var i = 0; i < this._rows; i++) {
+            items.push(i * this._cols + j);
+          }
+          if (this._curDirection === this.DOWN) {
+            items.reverse();
+          }
+          this._animateForward(items);
+        }
         break;
     }
   }
@@ -128,16 +250,21 @@ function Game2048() {
   this._fillOneCell = function(i, num) {
     var index = 0;
     if (i < 0) {
-      i = utils.getRandomAmongScope(0, this._emptyCells.length - 1);
+      i = Utils.getRandomAmongScope(0, this._emptyCells.length - 1);
     }
     index = this._emptyCells[i];
 
     this._curItems[index] = num;
     this._curDirection = 0;       // 渲染前先重置移动方向
+    var delayTime = this.animTime + 50;
     this._render(function() {
       var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
       $list_div.eq(index)
         .off(animationEnd)
+        .css({
+          '-webkit-animate-delay': delayTime + 'ms',
+          'animate-delay': delayTime + 'ms',
+        })
         .addClass('item-emerge')
         .one(animationEnd, function() {
           $(this).removeClass('item-emerge');
@@ -276,42 +403,6 @@ function Game2048() {
     return arr;
   }
 
-  // 逆向移动(某列向上/某行向左)
-  this._moveReverse = function(items) {
-    var arr = [];
-    var i = 0;
-    var len = items.length;
-    var pre = 0;
-    var cur = 0;
-    for (i = 0; i < len; i++) {
-      if (!items[i]) {
-        cur = 0;
-        continue;
-      }
-      cur = items[i];
-      if (!pre) {
-        pre = cur;
-        continue;
-      }
-      if (pre === cur) {
-        this._updateMaxItem(pre * 2);
-        arr.push(pre * 2);
-        pre = 0;
-        continue;
-      }
-      arr.push(pre);
-      pre = cur;
-    }
-    if (pre) {
-      arr.push(pre);
-    }
-    for (i = arr.length; i < len; i++) {
-      arr.push(0);
-    }
-
-    return arr;
-  }
-
   // 移动后
   this._moveDone = function() {
     this._render();
@@ -342,7 +433,7 @@ function Game2048() {
       return;
     }
     this._moveLocked = true;      // 先锁上
-    this._curDirection = this.direction;
+    this._curDirection = direction;
 
     var items = [];
     for (var i = 0; i < this._rows; i++) {
@@ -351,7 +442,9 @@ function Game2048() {
         items.push(this._curItems[i * this._cols + j]);
       }
       if (direction === this.LEFT) {
-        items = this._moveReverse(items);
+        items.reverse();
+        items = this._moveForward(items);
+        items.reverse();
       } else {
         items = this._moveForward(items);
       }
@@ -370,7 +463,7 @@ function Game2048() {
       return;
     }
     this._moveLocked = true;      // 先锁上
-    this._curDirection = this.direction;
+    this._curDirection = direction;
 
     var items = [];
     for (var j = 0; j < this._cols; j++) {
@@ -379,7 +472,9 @@ function Game2048() {
         items.push(this._curItems[i * this._cols + j]);
       }
       if (direction === this.UP) {
-        items = this._moveReverse(items);
+        items.reverse();
+        items = this._moveForward(items);
+        items.reverse();
       } else {
         items = this._moveForward(items);
       }

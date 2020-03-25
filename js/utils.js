@@ -1,4 +1,4 @@
-window.utils = {
+window.Utils = {
   /**
    * 用于为元素添加CSS类
    * 对于支持classList属性的浏览器，可用classList相关Api进行操作
@@ -65,7 +65,7 @@ window.utils = {
    * 对数组进行洗牌
    */
   shuffleArray: function(arr) {
-    if (!utils.isTrueArray(arr)) {
+    if (!Utils.isTrueArray(arr)) {
       throw new Error('shuffleArray 的参数必须为数组');
     }
     arr.sort(function (a, b) {

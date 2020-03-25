@@ -48,7 +48,6 @@ li div {
   left: 0;
   top: 0;
   border-radius: 6%;
-  transition: transform .2s ease-in;
 }
 
 li div b {
