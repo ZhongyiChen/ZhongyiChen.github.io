@@ -1,54 +1,86 @@
-var Utils = window.Utils;
-var Doms = {
-  operatePanel: document.querySelector('.operate-panel'),
-  btnMore: document.querySelector('.btn-more'),
-  btnBack: document.querySelector('.btn-back'),
-  btnRule: document.querySelector('.btn-rule'),
-  btnCoder: document.querySelector('.btn-coder'),
-  popupPanel: document.querySelector('.popup-panel'),
-  popups: Array.prototype.slice.call(document.querySelectorAll('.popup')),
-  popupSuccess: document.querySelector('.popup-success'),
-  popupFail: document.querySelector('.popup-fail'),
-  popupRule: document.querySelector('.popup-rule'),
-  popupCoder: document.querySelector('.popup-coder'),
-  btnsClose: Array.prototype.slice.call(document.querySelectorAll('.btn-close')),
-};
-
 /**
- * 事件回调
+ * DOM 相关的操作
  */
-function btnMoreClicked(event) {
-  Utils.toggleClass(this, 'active');
-  Utils.toggleClass(Doms.operatePanel, 'active');
-  Utils.toggleClass(Doms.btnBack, 'active');
-  Utils.toggleClass(Doms.btnRule, 'active');
-  Utils.toggleClass(Doms.btnCoder, 'active');
-}
-
-function btnRuleClicked(event) {
-  Utils.addClass(Doms.popupPanel, 'active');
-  Utils.addClass(Doms.popupRule, 'active');
-}
-
-function btnCoderClicked(event) {
-  Utils.addClass(Doms.popupPanel, 'active');
-  Utils.addClass(Doms.popupCoder, 'active');
-}
-
-function closePopup(event) {
-  Utils.removeClass(Doms.popupPanel, 'active');
-  for (var i = 0; i < Doms.popups.length; i++) {
-    if (Utils.hasClass(Doms.popups[i], 'active')) {
-      Utils.removeClass(Doms.popups[i], 'active');
-      break;
+function DomOperator() {
+  var Utils = window.Utils;
+  var Doms = {
+    operatePanel: document.querySelector('.operate-panel'),
+    btnMore: document.querySelector('.btn-more'),
+    btnBack: document.querySelector('.btn-back'),
+    btnRule: document.querySelector('.btn-rule'),
+    btnCoder: document.querySelector('.btn-coder'),
+    popupPanel: document.querySelector('.popup-panel'),
+    popups: Array.prototype.slice.call(document.querySelectorAll('.popup')),
+    popupSuccess: document.querySelector('.popup-success'),
+    popupFail: document.querySelector('.popup-fail'),
+    popupRule: document.querySelector('.popup-rule'),
+    popupCoder: document.querySelector('.popup-coder'),
+    btnsClose: Array.prototype.slice.call(document.querySelectorAll('.btn-close')),
+  };
+  
+  /**
+   * 事件回调
+   */
+  function btnMoreClicked(event) {
+    Utils.toggleClass(this, 'active');
+    Utils.toggleClass(Doms.operatePanel, 'active');
+    Utils.toggleClass(Doms.btnBack, 'active');
+    Utils.toggleClass(Doms.btnRule, 'active');
+    Utils.toggleClass(Doms.btnCoder, 'active');
+  }
+  
+  function btnRuleClicked(event) {
+    Utils.addClass(Doms.popupPanel, 'active');
+    Utils.addClass(Doms.popupRule, 'active');
+  }
+  
+  function btnCoderClicked(event) {
+    Utils.addClass(Doms.popupPanel, 'active');
+    Utils.addClass(Doms.popupCoder, 'active');
+  }
+  
+  function closePopup(event) {
+    Utils.removeClass(Doms.popupPanel, 'active');
+    for (var i = 0; i < Doms.popups.length; i++) {
+      if (Utils.hasClass(Doms.popups[i], 'active')) {
+        Utils.removeClass(Doms.popups[i], 'active');
+        break;
+      }
     }
+  }
+
+  this.showPopupSuccess = function() {
+    Utils.addClass(Doms.popupPanel, 'active');
+    Utils.addClass(Doms.popupSuccess, 'active');
+  }
+
+  this.showPopupFail = function() {
+    Utils.addClass(Doms.popupPanel, 'active');
+    Utils.addClass(Doms.popupFail, 'active');
+  }
+
+  this.init = function() {
+    Doms.btnMore.addEventListener('click', btnMoreClicked);
+    Doms.btnRule.addEventListener('click', btnRuleClicked);
+    Doms.btnCoder.addEventListener('click', btnCoderClicked);
+    Doms.popupPanel.addEventListener('click', closePopup);
+    Doms.btnsClose.map(function(dom) {
+      dom.addEventListener('click', closePopup);
+    });
+  }
+
+  // 防止新手调用时忘记用 new 操作符
+  if (this instanceof DomOperator) {
+    return this;
+  } else {
+    return new DomOperator();
   }
 }
 
 /**
  * 游戏的具体实现
  */
-function Game2048() {
+function Game2048(successCb, failCb) {
   var $ = window.$;
   var Utils = window.Utils;
   var Anim = window.Anim;
@@ -455,7 +487,7 @@ function Game2048() {
     this._fillOneCell(-1, 2);
     this._affirmMoveDirection();
     if (this._maxItem === 2048) {
-      // console.log('恭喜你！成功到达 2048！');
+      successCb && successCb();
     }
     if (
       this.canMoveLeft ||
@@ -467,7 +499,7 @@ function Game2048() {
       return this;
     }
     this.gameLose = true;
-    // console.log('不幸失败了！');
+    failCb && failCb();
 
     return this;
   }
@@ -545,18 +577,15 @@ window.onload = function() {
   var $ = window.$;
 
   // 处理各个DOM事件回调
-  Doms.btnMore.addEventListener('click', btnMoreClicked);
-  Doms.btnRule.addEventListener('click', btnRuleClicked);
-  Doms.btnCoder.addEventListener('click', btnCoderClicked);
-  Doms.popupPanel.addEventListener('click', closePopup);
-  Doms.btnsClose.map(function(dom) {
-    dom.addEventListener('click', closePopup);
-  });
-
+  var domOperator = new DomOperator();
+  domOperator.init();
 
   // 接下来的代码属于 2048 小游戏
   var $container = $('.container');
-  var game = new Game2048();
+  var game = new Game2048(
+    domOperator.showPopupSuccess,
+    domOperator.showPopupFail
+  );
 
   var swipeListener = function(direction) {
     if (game.gameLose) {
