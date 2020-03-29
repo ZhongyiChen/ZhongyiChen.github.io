@@ -29,13 +29,49 @@
       <li><div class="item-0"><b></b></div></li>
     </ul>
   </div>
-  <div class="operate-panel" id="operatePanel">
-
-  </div>
+  <div class="operate-panel"></div>
   <a href="../case.html" class="btn-back" value="返回"><span></span></a>
   <a class="btn-rule" value="玩法"></a>
   <a class="btn-coder" value="码工"></a>
   <a class="btn-more"></a>
+  <div class="popup-panel"></div>
+  <article class="popup popup-success">
+    <i class="btn-close"></i>
+    <h1>成功了!</h1>
+    <div data-enable-scroll="1">
+      <p>恭喜您成功到达2048！</p>
+    </div>
+  </article>
+  <article class="popup popup-fail">
+    <i class="btn-close"></i>
+    <h1>失败了!</h1>
+    <div data-enable-scroll="1">
+      <p>额，无法进行下一步了！</p>
+    </div>
+  </article>
+  <article class="popup popup-rule">
+    <i class="btn-close"></i>
+    <h1>游戏规则</h1>
+    <div data-enable-scroll="1">
+      <p>
+        本游戏要求玩家叠加出一个2048方块。<br>
+        相邻或相隔一些空格的两个方块，如果它们的数值相等，
+        则可叠加出一个新方块，其值为之前的两个方块之和。<br>
+        如果塞满了所有的空格且无法再叠加方块，则视为失败。<br>
+        在移动端，手指向 上/下/左/右 四个方向滑动即可。<br>
+        在PC端，键W / 键↑ 表示向上；键S / 键↓ 表示向下；键A / 键← 表示向左；键D / 键→ 表示向右。
+      </p>
+    </div>
+  </article>
+  <article class="popup popup-coder">
+    <i class="btn-close"></i>
+    <h1>关于开发者</h1>
+    <div data-enable-scroll="1">
+      <p>
+        本游戏用于Javascript编程教学。对于该游戏的运行，开发者不对除教学以外的事情负责。
+      </p>
+    </div>
+  </article>
   <script>
     (function() {
       if (navigator.userAgent.match(/AppleWebKit.*Mobile.*/)) {

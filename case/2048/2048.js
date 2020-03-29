@@ -1,14 +1,48 @@
+var Utils = window.Utils;
+var Doms = {
+  operatePanel: document.querySelector('.operate-panel'),
+  btnMore: document.querySelector('.btn-more'),
+  btnBack: document.querySelector('.btn-back'),
+  btnRule: document.querySelector('.btn-rule'),
+  btnCoder: document.querySelector('.btn-coder'),
+  popupPanel: document.querySelector('.popup-panel'),
+  popups: Array.prototype.slice.call(document.querySelectorAll('.popup')),
+  popupSuccess: document.querySelector('.popup-success'),
+  popupFail: document.querySelector('.popup-fail'),
+  popupRule: document.querySelector('.popup-rule'),
+  popupCoder: document.querySelector('.popup-coder'),
+  btnsClose: Array.prototype.slice.call(document.querySelectorAll('.btn-close')),
+};
+
 /**
- * 各个按钮的回调
+ * 事件回调
  */
 function btnMoreClicked(event) {
-  var Utils = window.Utils;
-  
   Utils.toggleClass(this, 'active');
-  Utils.toggleClass(document.getElementById('operatePanel'), 'active');
-  Utils.toggleClass(document.querySelector('.btn-back'), 'active');
-  Utils.toggleClass(document.querySelector('.btn-rule'), 'active');
-  Utils.toggleClass(document.querySelector('.btn-coder'), 'active');
+  Utils.toggleClass(Doms.operatePanel, 'active');
+  Utils.toggleClass(Doms.btnBack, 'active');
+  Utils.toggleClass(Doms.btnRule, 'active');
+  Utils.toggleClass(Doms.btnCoder, 'active');
+}
+
+function btnRuleClicked(event) {
+  Utils.addClass(Doms.popupPanel, 'active');
+  Utils.addClass(Doms.popupRule, 'active');
+}
+
+function btnCoderClicked(event) {
+  Utils.addClass(Doms.popupPanel, 'active');
+  Utils.addClass(Doms.popupCoder, 'active');
+}
+
+function closePopup(event) {
+  Utils.removeClass(Doms.popupPanel, 'active');
+  for (var i = 0; i < Doms.popups.length; i++) {
+    if (Utils.hasClass(Doms.popups[i], 'active')) {
+      Utils.removeClass(Doms.popups[i], 'active');
+      break;
+    }
+  }
 }
 
 /**
@@ -510,8 +544,14 @@ function Game2048() {
 window.onload = function() {
   var $ = window.$;
 
-  // 处理各个按钮的回调
-  $('.btn-more').click(btnMoreClicked);
+  // 处理各个DOM事件回调
+  Doms.btnMore.addEventListener('click', btnMoreClicked);
+  Doms.btnRule.addEventListener('click', btnRuleClicked);
+  Doms.btnCoder.addEventListener('click', btnCoderClicked);
+  Doms.popupPanel.addEventListener('click', closePopup);
+  Doms.btnsClose.map(function(dom) {
+    dom.addEventListener('click', closePopup);
+  });
 
 
   // 接下来的代码属于 2048 小游戏

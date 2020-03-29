@@ -11,8 +11,8 @@ html {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 800px;
-  height: 800px;
+  width: 760px;
+  height: 760px;
   background-color: #B6A8A0;
   margin-left: auto;
   margin-right: auto;
@@ -118,7 +118,8 @@ li div b {
   background-color: #E2C14E;
 }
 
-.operate-panel {
+.operate-panel,
+.popup-panel {
   display: none;
   position: absolute;
   left: 0;
@@ -128,7 +129,8 @@ li div b {
   background-color: rgba(0, 0, 0, .8);
 }
 
-.operate-panel.active {
+.operate-panel.active,
+.popup-panel.active {
   display: block;
 }
 
@@ -146,6 +148,7 @@ li div b {
   border-radius: 50%;
   transition: all .25s;
   transition-duration: .25s;
+  transition-timing-function: ease-in-out;
   cursor: pointer;
 }
 
@@ -204,7 +207,7 @@ li div b {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 60%;
+  width: 50%;
   height: 5%;
   background-color: currentColor;
   transition: all .25s;
@@ -228,6 +231,80 @@ li div b {
 .btn-more.active:after {
   -webkit-transform: translate(-50%, -50%) rotate(135deg);
   transform: translate(-50%, -50%) rotate(135deg);
+}
+
+.popup {
+  display: none;
+  position: absolute;
+  left: 16%;
+  right: 16%;
+  top: 50%;
+  max-width: 320px;
+  text-align: center;
+  padding: .5em 1em;
+  margin: auto;
+  border-radius: 1rem;
+  background-color: #e8e4e6;
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+}
+
+.popup.active {
+  display: block;
+}
+
+.popup h1 {
+  margin: 0;
+  line-height: 2;
+}
+
+.popup div {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.popup p {
+  text-align: justify;
+  width: fit-content;
+  margin: auto;
+  line-height: 2;
+}
+
+.popup .btn-close {
+  width: 2.4em;
+  height: 2.4em;
+  box-sizing: border-box;
+  text-indent: -9999px;
+  vertical-align: middle;
+  position: absolute;
+  bottom: 100%;
+  left: 100%;
+  color: #e8e4e6;
+  cursor: pointer;
+}
+
+.popup .btn-close:before,
+.popup .btn-close:after {
+  content: '';
+  box-sizing: inherit;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.popup .btn-close:before {
+  width: 90%;
+  border-top: 2px solid;
+  -webkit-transform: translate(-50%, -50%) rotate(45deg);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.popup .btn-close:after {
+  height: 90%;
+  border-left: 2px solid;
+  -webkit-transform: translate(-50%, -50%) rotate(45deg);
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
 @-webkit-keyframes emerge {
