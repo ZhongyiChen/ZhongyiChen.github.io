@@ -1,4 +1,17 @@
 /**
+ * 各个按钮的回调
+ */
+function btnMoreClicked(event) {
+  var Utils = window.Utils;
+  
+  Utils.toggleClass(this, 'active');
+  Utils.toggleClass(document.getElementById('operatePanel'), 'active');
+  Utils.toggleClass(document.querySelector('.btn-back'), 'active');
+  Utils.toggleClass(document.querySelector('.btn-rule'), 'active');
+  Utils.toggleClass(document.querySelector('.btn-coder'), 'active');
+}
+
+/**
  * 游戏的具体实现
  */
 function Game2048() {
@@ -495,6 +508,13 @@ function Game2048() {
 
 
 window.onload = function() {
+  var $ = window.$;
+
+  // 处理各个按钮的回调
+  $('.btn-more').click(btnMoreClicked);
+
+
+  // 接下来的代码属于 2048 小游戏
   var $container = $('.container');
   var game = new Game2048();
 
@@ -550,6 +570,28 @@ window.onload = function() {
     swipeListener(game.DOWN);
   });
 
+  // 监听键盘事件
+  $(document).keydown(function(event) {
+    
+    switch (event.keyCode) {
+      case 37:      // [←]
+      case 65:      // [A]
+        swipeListener(game.LEFT);
+        break;
+      case 39:      // [→]
+      case 68:      // [D]
+        swipeListener(game.RIGHT);
+        break;
+      case 38:      // [↑]
+      case 87:      // [W]
+        swipeListener(game.UP);
+        break;
+      case 40:      // [↓]
+      case 83:      // [S]
+        swipeListener(game.DOWN);
+        break;
+    }
+  });
 
   // 游戏正式开始
   game.init();

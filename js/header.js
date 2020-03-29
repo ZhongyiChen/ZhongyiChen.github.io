@@ -2,16 +2,16 @@ window.addEventListener('load', function winLoaded() {
   var navBar = document.getElementById('navBar');
   var navUl = document.getElementById('navUl');
 
-  var utils = window.utils;
+  var Utils = window.Utils;
   
   navBar.addEventListener('click', function navBarClickCb() {
     if (1 === +this.dataset.collapse) {
-      utils.removeClass(navBar, 'collapse');
-      utils.removeClass(navUl, 'collapse');
+      Utils.removeClass(navBar, 'collapse');
+      Utils.removeClass(navUl, 'collapse');
       this.dataset.collapse = 0;
     } else {
-      utils.addClass(navBar, 'collapse');
-      utils.addClass(navUl, 'collapse');
+      Utils.addClass(navBar, 'collapse');
+      Utils.addClass(navUl, 'collapse');
       this.dataset.collapse = 1;
     }
   });

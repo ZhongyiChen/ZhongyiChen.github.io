@@ -118,6 +118,118 @@ li div b {
   background-color: #E2C14E;
 }
 
+.operate-panel {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .8);
+}
+
+.operate-panel.active {
+  display: block;
+}
+
+.btn-back,
+.btn-rule,
+.btn-coder,
+.btn-more {
+  color: #EDE9E6;
+  position: absolute;
+  right: 1rem;
+  bottom: 2rem;
+  width: 0;
+  height: 0;
+  padding: 30px;
+  border-radius: 50%;
+  transition: all .25s;
+  transition-duration: .25s;
+  cursor: pointer;
+}
+
+.btn-back:after,
+.btn-rule:after,
+.btn-coder:after {
+  content: attr(value);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+
+.btn-back {
+  background-color: #d8330a;
+  transition-delay: .05s;
+}
+
+.btn-back.active {
+  right: 9rem;
+  bottom: 2rem;
+}
+
+.btn-rule {
+  background-color: #a77a1b;
+  transition-delay: .1s;
+}
+
+.btn-rule.active {
+  right: 6.657rem;
+  bottom: 7.657rem;
+}
+
+.btn-coder {
+  background-color: #8b8d19;
+  transition-delay: .15s;
+}
+
+.btn-coder.active {
+  right: 1rem;
+  bottom: 10rem;
+}
+
+.btn-more {
+  background-color: #078881;
+}
+
+.btn-more.active {
+  background-color: #14b9b1;
+}
+
+.btn-more:before,
+.btn-more:after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 60%;
+  height: 5%;
+  background-color: currentColor;
+  transition: all .25s;
+}
+
+.btn-more:before {
+  -webkit-transform: translate(-50%, -50%) rotate(0deg);
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.btn-more:after {
+  -webkit-transform: translate(-50%, -50%) rotate(90deg);
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.btn-more.active:before {
+  -webkit-transform: translate(-50%, -50%) rotate(45deg);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.btn-more.active:after {
+  -webkit-transform: translate(-50%, -50%) rotate(135deg);
+  transform: translate(-50%, -50%) rotate(135deg);
+}
+
 @-webkit-keyframes emerge {
   from {
     -webkit-transform: scale(.1);

@@ -1,5 +1,15 @@
 window.Utils = {
   /**
+   * 判断是否拥有某类
+   */
+  hasClass: function(el, cls) {
+    if (el.classList) return el.classList.contains(cls);
+    var cur = ' ' + Utils.getClassName(el) + ' ',
+      tar = ' ' + cls + ' ';
+    if (cur.indexOf(tar) >= 0) return true;
+    return false;
+  },
+  /**
    * 用于为元素添加CSS类
    * 对于支持classList属性的浏览器，可用classList相关Api进行操作
    * 对于不支持classList属性的浏览器（如IE9，IE10的svg标签），可用setAttribute手动设置类
@@ -7,11 +17,11 @@ window.Utils = {
   addClass: function(el, cls) {
     if (el.classList) {
       el.classList.add(cls)
-    } else {
-      var cur = ' ' + utils.getClassName(el) + ' '
-      if (cur.indexOf(' ' + cls + ' ') < 0) {
-        el.setAttribute('class', (cur + cls).trim())
-      }
+      return;
+    }
+    var cur = ' ' + Utils.getClassName(el) + ' ';
+    if (cur.indexOf(' ' + cls + ' ') < 0) {
+      el.setAttribute('class', (cur + cls).trim());
     }
   },
   /**
@@ -23,13 +33,27 @@ window.Utils = {
     if (el.classList) {
       el.classList.remove(cls)
     } else {
-      var cur = ' ' + utils.getClassName(el) + ' ',
+      var cur = ' ' + Utils.getClassName(el) + ' ',
         tar = ' ' + cls + ' '
       while (cur.indexOf(tar) >= 0) {
         cur = cur.replace(tar, ' ')
       }
       el.setAttribute('class', cur.trim())
     }
+  },
+  /**
+   * 切换类
+   */
+  toggleClass: function(el, cls) {
+    if (el.classList) {
+      el.classList.toggle(cls);
+      return;
+    }
+    if (Utils.hasClass(el, cls)) {
+      Utils.removeClass(el, cls);
+      return;
+    }
+    Utils.addClass(el, cls);
   },
   /**
    * 用于获取元素的CSS类
