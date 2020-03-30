@@ -26,9 +26,88 @@ header {
   box-shadow: 0 0 3px 0 #001e1d;
 }
 
-header nav {
+header nav,
+.works-container {
   max-width: 1024px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
   box-sizing: border-box;
+}
+
+.works {
+  margin-left: -3.5%;
+  text-align: justify;
+}
+
+.works-item {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+  padding: 12% 14%;
+  margin: 3.5% 0 0 3.5%;
+  vertical-align: top;
+  box-sizing: border-box;
+  border-radius: .5em;
+  overflow: hidden;
+}
+
+.works-item:hover {
+  box-shadow: gray 0 2px 2px 0;
+}
+
+.works-item__cover {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 40%;
+  cursor: pointer;
+  background-color: #abd1c6;
+}
+
+.works-item__2048 {
+  background-image: url("data:image/svg+xml,%3Csvg width='580' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='none' d='M-1-1h582v402H-1z'/%3E%3Cg%3E%3Ctext stroke='%23000' transform='matrix(10.25755 -2.7485 2.34722 8.75995 -854.747 -673.56)' font-family='Euphoria, sans-serif' font-size='24' y='127.596' x='57.886' stroke-width='0' fill='%23e8b387'%3E2%3C/text%3E%3Ctext stroke='%23000' transform='matrix(10.56122 1.11003 -.94797 9.01929 -481.011 -969.215)' font-family='Euphoria, sans-serif' font-size='24' y='131.566' x='71.163' stroke-width='0' fill='%23e3cb83'%3E0%3C/text%3E%3Ctext stroke='%23000' transform='rotate(7 7933.005 -4319.685) scale(10.61939 9.06897)' font-family='Euphoria, sans-serif' font-size='24' y='124.178' x='84.347' stroke-width='0' fill='%23e77757'%3E4%3C/text%3E%3Ctext stroke='%23000' transform='matrix(10.61293 -.37061 .3165 9.06344 -639.989 -849.271)' font-family='Euphoria, sans-serif' font-size='24' y='134.212' x='96.871' stroke-width='0' fill='%23e2c14e'%3E8%3C/text%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center center;
+  transition: background-size .2s;
+}
+
+.works-item__2048:hover {
+  background-size: 120%;
+}
+
+.works-item__desc {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 60%;
+  bottom: 0;
+  padding: 1em;
+  margin: 0;
+  text-overflow: ellipsis;
+  background-color: #fffffe;
+}
+
+.works-item.empty {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+}
+
+@media screen and (max-width: 1024px) {
+  .works-container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .works {
+    margin-left: 0;
+  }
+  .works-item {
+    padding: 42% 49%;
+    margin-left: 1%;
+    margin-top: 6%;
+  }
 }

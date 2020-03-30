@@ -12,6 +12,7 @@ header {
   height: 80px;
   font-size: 1.6em;
   padding-left: calc(100vw - 100%);
+  z-index: 1;
 }
 
 header nav {
