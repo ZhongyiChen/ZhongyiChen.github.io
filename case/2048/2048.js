@@ -480,11 +480,18 @@ function Game2048(successCb, failCb) {
     return arr;
   }
 
+  this._genNextNum = function() {
+    if (this._maxItem < 256) {
+      return 2;
+    }
+    return Math.random() > .75 ? 4 : 2;
+  }
+
   // 移动后
   this._moveDone = function() {
     this._render();
     this._filterEmptyCells();
-    this._fillOneCell(-1, 2);
+    this._fillOneCell(-1, this._genNextNum());
     this._affirmMoveDirection();
     if (this._maxItem === 2048) {
       successCb && successCb();
