@@ -4,36 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <link rel="shortcut icon" href="../favicon.png">
-  <title>Ego Case</title>
+  <title>Ego me</title>
   <script src="../js/necessary.js"></script>
-  <link rel="stylesheet" href="case.css">
+  <link rel="stylesheet" href="blog.css">
 </head>
 <body>
   <header>
     <nav>
       <a id="navBar" class="navbar collapse" data-collapse="1"></a>
       <ul id="navUl" class="collapse">
-        <li><a href="../blog/blog.html">博 客</a></li>
-        <li class="active"><a href="#">作 品</a></li>
+        <li class="active"><a href="#">博 客</a></li>
+        <li><a href="../case/case.html">作 品</a></li>
         <li><a href="../fav/fav.html">收 藏</a></li>
         <li><a href="../me/me.html">个 人</a></li>
       </ul>
     </nav>
   </header>
-  <div class="works-container" data-enable-scroll="1">
-    <ul class="works">
-      <li class="works-item">
-        <a class="works-item__cover works-item__2048" href="./2048/2048.html"></a>
-        <p class="works-item__desc">小游戏，用于IT教学哦~什么时候无聊了，就可以玩两下，看你能不能熬到2048！</p>
-      </li>
-      <li class="works-item empty"></li>
-      <li class="works-item empty"></li>
-      <li class="works-item empty"></li>
-    </ul>
-  </div>
   <footer>
     <p><small>© copyright 2020 ChenZhongyi</small></p>
   </footer>
+  <script>
+    (function() {
+      if (navigator.userAgent.match(/AppleWebKit.*Mobile.*/)) {
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.src = '../js/disable_body_scroll.js';
+        document.getElementsByTagName('head')[0].appendChild(s);
+      }
+    }());
+  </script>
   <script src="../js/utils.js"></script>
   <script src="../js/header.js"></script>
 </body>

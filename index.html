@@ -2,7 +2,6 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-FRAME-OPTIONS" content="DENY">
   <meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <link rel="shortcut icon" href="favicon.png">
   <title>Ego</title>
@@ -26,32 +25,83 @@
       margin: 40px 0 0 40px;
       font-size: 0;
     }
-    .btn {
+    .btn-divider {
       position: absolute;
       left: 50%;
       top: 50%;
-      -webkit-transform: translate(-50%);
-      transform: translate(-50%);
-      font-size: 1.3em;
-      border: 2px solid #fffffe;
-      border-radius: .3em;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      width: 12em;
+      height: 8em;
+    }
+    .btn-divider:before,
+    .btn-divider:after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      height: 1px;
+      background-color: #e8e4e6;
+      -webkit-transform-origin: 50% 50%;
+      transform-origin: 50% 50%;
+    }
+    .btn-divider:before {
+      width: 100%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+    .btn-divider:after {
+      width: 86%;
+      -webkit-transform: translate(-50%, -50%) rotate(90deg);
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+    .btn {
+      position: absolute;
+    }
+    .btn-blog{
+      right: 50%;
+      bottom: 50%;
+    }
+    .btn-case{
+      left: 50%;
+      bottom: 50%;
+    }
+    .btn-fav{
+      right: 50%;
+      top: 50%;
+    }
+    .btn-me{
+      left: 50%;
+      top: 50%;
     }
     .btn a {
+      display: block;
       position: relative;
       white-space: nowrap;
       font-weight: bold;
       color: #fffffe;
       text-decoration: none;
-      padding: .25em 1em;
-      vertical-align: top;
+      letter-spacing: 1em;
+      font-size: 1.3em;
+      padding: 1em 0em 1em 1em;
       z-index: 1;
     }
   </style>
 </head>
 <body>
   <h1>Ego</h1>
-  <div class="btn">
-    <a href="nav/nav.html">芝麻开门</a>
+  <i class="btn-divider"></i>
+  <div class="btn btn-blog">
+    <a href="blog/blog.html">博客</a>
+  </div>
+  <div class="btn btn-case">
+    <a href="case/case.html">作品</a>
+  </div>
+  <div class="btn btn-fav">
+    <a href="fav/fav.html">收藏</a>
+  </div>
+  <div class="btn btn-me">
+    <a href="me/me.html">个人</a>
   </div>
   <footer>
     <p><small>© copyright 2020 ChenZhongyi</small></p>
